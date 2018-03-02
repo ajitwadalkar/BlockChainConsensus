@@ -28,7 +28,10 @@ public class Simulation {
             if(Math.random() < p_malicious)
                 // When you are ready to try testing with malicious nodes, replace the
                 // instantiation below with an instantiation of a MaliciousNode
-               nodes[i] = new MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds);
+            {
+                nodes[i] = new MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds);
+                count++;
+            }
             else
                 nodes[i] = new CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds);
         }
@@ -51,6 +54,7 @@ public class Simulation {
 
         // initialize a set of 50 valid Transactions with random ids
         int numTx = 50;
+        System.out.println("Total Number of valid transactions: "+numTx);
         //HashSet<Integer,String> validTxIds = new HashSet<Integer,String>();
         HashMap<Integer, String> validTxIds =  new HashMap<>();
         Random random = new Random();
@@ -127,7 +131,7 @@ public class Simulation {
             }
         }
         int consensusCount = 0;
-        System.out.println("The transactions that reached consensus are: ");
+        System.out.println("List of the transactions that reached consensus are: ");
         System.out.println("**********************************************************************************************");
         for(Map.Entry<String,Integer> entry : countMap.entrySet()){
             if(entry.getValue() > (0.51*numNodes)) {
@@ -136,7 +140,8 @@ public class Simulation {
             }
         }
         System.out.println("**********************************************************************************************");
-        System.out.println("The no of transactions that reached consensus: " + consensusCount);
+        System.out.println("The total number of transactions that reached consensus: " + consensusCount);
+        System.out.println("Number of malicious nodes we assumed: "+count);
 
     }
 
